@@ -22,7 +22,7 @@ Color3f NaiveIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<
             if (pdf < 0.0000001) {
                 color = Le;
             }
-            else color =  Le + c * li * glm::dot(wiW, isect.normalGeometric)/pdf;
+            else color =  Le + c * li * AbsDot(wiW, isect.normalGeometric)/pdf;
         }
     }
     return color;

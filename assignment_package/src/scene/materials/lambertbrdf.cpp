@@ -13,8 +13,8 @@ Color3f LambertBRDF::Sample_f(const Vector3f &wo, Vector3f *wi, const Point2f &u
     //TODO
     if (sampledType) *sampledType = type;
     *wi = WarpFunctions::squareToHemisphereCosine(u);
-    *pdf = LambertBRDF::Pdf(wo, *wi);
-    return LambertBRDF::f(wo,*wi);
+    *pdf = Pdf(wo, *wi);
+    return f(wo,*wi);
 }
 
 float LambertBRDF::Pdf(const Vector3f &wo, const Vector3f &wi) const

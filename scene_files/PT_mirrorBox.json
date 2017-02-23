@@ -81,16 +81,6 @@
             "rotate" : [0,-17.5,0],
             "scale" : [3, 3, 3]
           }
-        },
-        {
-          "shape" : "SquarePlane",
-          "name" : "textured plane",
-          "material" : "texturedMaterial",
-          "transform" : {
-            "translate" : [-7, 3, -31],
-            "rotate" : [0,0,-30],
-            "scale" : [20, 20, 1]
-          }
         }
       ],
       "lights" : [

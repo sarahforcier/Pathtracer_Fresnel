@@ -14,5 +14,8 @@ float SpecularBRDF::Pdf(const Vector3f &wo, const Vector3f &wi) const
 Color3f SpecularBRDF::Sample_f(const Vector3f &wo, Vector3f *wi, const Point2f &sample, Float *pdf, BxDFType *sampledType) const
 {
     //TODO!
-    return Color3f(0.f);
+    if (sampledType) *sampledType = type;
+    *wi = Vector3f(-wo.x, -wo.y, wo.z);
+    *pdf = 1.f;
+    return fresnel->Evaluate(wi->z) * R / std::abs(wi->z);
 }
