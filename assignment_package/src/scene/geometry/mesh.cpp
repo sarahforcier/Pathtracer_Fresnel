@@ -15,6 +15,11 @@ float Mesh::Area() const
     return 0;
 }
 
+Intersection Mesh::Sample(const Point2f &xi, Float *pdf) const {
+    Intersection inter;
+    return inter;
+}
+
 Triangle::Triangle(const glm::vec3 &p1, const glm::vec3 &p2, const glm::vec3 &p3):
     Triangle(p1, p2, p3, glm::vec3(1), glm::vec3(1), glm::vec3(1), glm::vec2(0), glm::vec2(0), glm::vec2(0))
 {
@@ -47,6 +52,11 @@ Triangle::Triangle(const glm::vec3 &p1, const glm::vec3 &p2, const glm::vec3 &p3
 float TriArea(const glm::vec3 &p1, const glm::vec3 &p2, const glm::vec3 &p3)
 {
     return glm::length(glm::cross(p1 - p2, p3 - p2)) * 0.5f;
+}
+
+Intersection Triangle::Sample(const Point2f &xi, Float *pdf) const {
+    Intersection inter;
+    return inter;
 }
 
 //Returns the interpolation of the triangle's three normals based on the point inside the triangle that is given.
