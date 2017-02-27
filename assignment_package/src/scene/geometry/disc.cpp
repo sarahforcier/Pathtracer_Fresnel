@@ -3,11 +3,24 @@
 float Disc::Area() const
 {
     //TODO
-    return 0.f;
+    return TwoPi * transform.getScale().x* transform.getScale().y;
 }
 
 Intersection Disc::Sample(const Point2f &xi, Float *pdf) const {
+    // TODO
+    // Create an Intersection to return.
     Intersection inter;
+
+    // Generate a world-space point on the surface of the shape.
+    Point3f p = Point3f(xi.x, xi.y, 0.f);
+    Point3f pW = transform.T3() * p;
+
+    // Set the point and normal of this Intersection to the correct values.
+    inter.normalGeometric = glm::normalize(transform.invTransT() * Normal3f(0.f, 0.f, 1.f));
+    inter.point = pW;
+
+    // Set the output PDF to the correct value, which would be a uniform PDF with respect to surface area.
+    *pdf = 1.f / Area();
     return inter;
 }
 

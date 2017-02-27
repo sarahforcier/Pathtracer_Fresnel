@@ -28,7 +28,7 @@ class BSDF
 public:
     BSDF(const Intersection& isect, float eta = 1);
 
-    ~BSDF(){for(BxDF* b : bxdfs){delete b;}}
+    ~BSDF();
 
     void Add(BxDF *b){if(numBxDFs < MaxBxDFs){bxdfs[numBxDFs++] = b;}}
 

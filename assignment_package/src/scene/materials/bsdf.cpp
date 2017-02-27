@@ -12,6 +12,11 @@ BSDF::BSDF(const Intersection& isect, float eta /*= 1*/)
     UpdateTangentSpaceMatrices(normal, isect.tangent, isect.bitangent);
 }
 
+BSDF::~BSDF() {
+    for(int i = 0; i < numBxDFs; i ++) {
+        delete bxdfs[i];
+    }
+}
 
 void BSDF::UpdateTangentSpaceMatrices(const Normal3f& n, const Vector3f& t, const Vector3f b)
 {
@@ -22,10 +27,10 @@ void BSDF::UpdateTangentSpaceMatrices(const Normal3f& n, const Vector3f& t, cons
 Color3f BSDF::f(const Vector3f &woW, const Vector3f &wiW, BxDFType flags /*= BSDF_ALL*/) const
 {
     Color3f sum = Color3f(0.f);
+    Vector3f woT = worldToTangent * woW;
+    Vector3f wiT = worldToTangent * wiW;
     for (int i = 0; i < numBxDFs; i++) {
         if (bxdfs[i]->MatchesFlags(flags)) {
-            Vector3f woT = worldToTangent * woW;
-            Vector3f wiT = worldToTangent * wiW;
             sum += bxdfs[i]->f(woT, wiT);
         }
     }
@@ -72,11 +77,11 @@ float BSDF::Pdf(const Vector3f &woW, const Vector3f &wiW, BxDFType flags) const
 {
     int num = 0;
     float sum = 0.f;
+    Vector3f woT = worldToTangent * woW;
+    Vector3f wiT = worldToTangent * wiW;
     for (int i = 0; i < numBxDFs; i++) {
         if (bxdfs[i]->MatchesFlags(flags)) {
             num++;
-            Vector3f woT = worldToTangent * woW;
-            Vector3f wiT = worldToTangent * wiW;
             sum += bxdfs[i]->Pdf(woT, wiT);
         }
     }

@@ -15,5 +15,12 @@ void Shape::InitializeIntersection(Intersection *isect, float t, Point3f pLocal)
 Intersection Shape::Sample(const Intersection &ref, const Point2f &xi, float *pdf) const
 {
     //TODO
-    return Intersection();
+    // invoke two-input sample
+    Float p;
+    Intersection isect = Sample(xi, &p);
+    // generate wi from resulting intersection
+    Vector3f wi = glm::normalize(isect.point - ref.point);
+    // convert to pdf with respect to solid angle
+    *pdf = p * glm::distance2(ref.point, isect.point) / AbsDot(isect.normalGeometric, -wi);
+    return isect;
 }

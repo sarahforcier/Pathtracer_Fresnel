@@ -3,11 +3,25 @@
 float SquarePlane::Area() const
 {
     //TODO
-    return 0.f;
+    Vector3f scale = transform.getScale();
+    return scale.x * scale.y;
 }
 
 Intersection SquarePlane::Sample(const Point2f &xi, Float *pdf) const {
+    // TODO
+    // Create an Intersection to return.
     Intersection inter;
+
+    // Generate a world-space point on the surface of the shape.
+    Point3f p = Point3f(xi.x-0.5, xi.y-0.5, 0.f);
+    Point4f pW = transform.T() * Point4f(p, 1.f);
+
+    // Set the point and normal of this Intersection to the correct values.
+    inter.normalGeometric = glm::normalize(transform.invTransT() * Normal3f(0.f, 0.f, 1.f));
+    inter.point = Point3f(pW);
+
+    // Set the output PDF to the correct value, which would be a uniform PDF with respect to surface area.
+    *pdf = 1.f / Area();
     return inter;
 }
 
