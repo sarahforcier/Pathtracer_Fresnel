@@ -54,3 +54,11 @@ Mirror Box
 
 #### Direct, 100
 ![](./100SamplesDirectMirrorBox_mine.png)
+
+
+Extra Credit
+------------
+#### Sphere Light, 100
+![](./rendered_images.png)
+
+#### FresnelConductor

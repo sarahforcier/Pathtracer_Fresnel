@@ -85,7 +85,7 @@
       ],
       "lights" : [
         {
-          "shape" : "SquarePlane",
+          "shape" : "Sphere",
           "name" : "Light Source",
           "type" : "DiffuseAreaLight",
           "lightColor" : [17,12,4],

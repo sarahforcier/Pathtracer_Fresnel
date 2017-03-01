@@ -1,14 +1,27 @@
 #include "sphere.h"
 #include <iostream>
 #include <math.h>
+#include <warpfunctions.h>
 
 float Sphere::Area() const
 {
-    //TODO later
+    return 2.f * TwoPi;
 }
 
 Intersection Sphere::Sample(const Point2f &xi, Float *pdf) const {
     Intersection inter;
+
+    // Generate a world-space point on the surface of the shape.
+    Point3f p = Point3f(0.f) + WarpFunctions::squareToSphereUniform(xi);
+
+    // Set the point and normal of this Intersection to the correct values.
+    inter.normalGeometric = glm::normalize(transform.invTransT() * p);
+    p /= glm::distance(p, Point3f(0.f));
+    Point4f pW = transform.T() * Point4f(p, 1.f);
+    inter.point = Point3f(pW);
+
+    // Set the output PDF to the correct value, which would be a uniform PDF with respect to surface area.
+    *pdf = 1.f / Area();
     return inter;
 }
 
