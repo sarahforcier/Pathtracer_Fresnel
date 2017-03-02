@@ -56,6 +56,12 @@ Mirror Box
 ![](./100SamplesDirectMirrorBox_mine.png)
 
 
+Default Scene
+------------
+#### Direct, 100
+![](./default.png)
+
+
 Extra Credit
 ------------
 #### Sphere Light, 100
